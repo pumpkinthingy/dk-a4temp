@@ -79,7 +79,7 @@ def run_client_tests():
     print("Server responded with: ", response)
     seconds_to_sleep = 2 + random.randint(0, 5)
     print("Sleeping %i seconds to allow simulate long client-server connection..." % seconds_to_sleep)
-    time.sleep(seconds_to_sleep * 1000)
+    time.sleep(seconds_to_sleep)
 
     request = "bla+bla"
     if not send_request_to_server(request):
