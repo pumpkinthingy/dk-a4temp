@@ -3,10 +3,14 @@
 
 import random
 import time
+from socket import *
 
 # Hostname of the server and TCP port number to use
 HOST = "datakomm.work"
 PORT = 1301
+
+# The socket object (connection to the server and data excahgne will happen using this variable)
+client_socket = None
 
 
 def connect_to_server(host, port):
@@ -16,6 +20,11 @@ def connect_to_server(host, port):
     :param port: TCP port to use
     :return: True when connection established, false otherwise
     """
+    # The "global" keyword is needed so that this function refers to the globally defined client_socket variable
+    global client_socket
+
+    client_socket = socket(AF_INET, SOCK_STREAM)
+
     # TODO - implement this method
     # Remember to catch all possible exceptions the socket can throw in case you have not worked with exceptions,
     # the syntax is as follows:
@@ -32,6 +41,9 @@ def close_connection():
     Close the TCP connection to the remote server.
     :return: True on success, false otherwise
     """
+    # The "global" keyword is needed so that this function refers to the globally defined client_socket variable
+    global client_socket
+
     # TODO - implement this method
     return False
 
@@ -41,6 +53,9 @@ def send_request_to_server(request):
     :param request: The request message to send. Do NOT include the newline in the message!
     :return: True when message successfully sent, false on error.
     """
+    # The "global" keyword is needed so that this function refers to the globally defined client_socket variable
+    global client_socket
+
     # TODO - implement this method
     return False
 
@@ -51,6 +66,9 @@ def read_response_from_server():
     :return: The response received from the server, None on error. The newline character is stripped away
      (not included in the returned value).
     """
+    # The "global" keyword is needed so that this function refers to the globally defined client_socket variable
+    global client_socket
+
     return None
 
 
