@@ -5,6 +5,8 @@ import no.ntnu.datakomm.chat.helpers.DummyMsgReceiver;
 import no.ntnu.datakomm.chat.helpers.DummySupportedReceiver;
 import no.ntnu.datakomm.chat.helpers.DummyUserListingReceiver;
 import org.junit.Test;
+import no.ntnu.datakomm.chat.TCPClient;
+import no.ntnu.datakomm.chat.TextMessage;
 
 import static org.junit.Assert.*;
 

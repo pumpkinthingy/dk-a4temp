@@ -15,6 +15,7 @@ public class EmptyChatListener implements ChatListener {
 
     @Override
     public void onMessageReceived(TextMessage message) {
+
     }
 
     @Override
