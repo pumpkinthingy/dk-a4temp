@@ -1,5 +1,6 @@
-package main.java.no.ntnu.datakomm;
+package no.ntnu.datakomm;
 
+import java.io.IOException;
 import no.ntnu.datakomm.SimpleTcpClient;
 
 /**
@@ -32,7 +33,7 @@ public class MultiClientTest {
                     log("Starting a client on thread #" + threadId);
                     client.run();
                     log("Done processing client on thread #" + threadId);
-                } catch (InterruptedException e) {
+                } catch (InterruptedException | IOException e) {
                     log("Client 1 interrupted");
                     Thread.currentThread().interrupt();
                 }

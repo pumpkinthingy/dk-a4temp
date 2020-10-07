@@ -1,4 +1,10 @@
-package main.java.no.ntnu.datakomm;
+package no.ntnu.datakomm;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.*;
 
 /**
  * A Simple TCP client, used as a warm-up exercise for assignment A4.
@@ -8,6 +14,7 @@ public class SimpleTcpClient {
     private static final String HOST = "localhost";
     // TCP port
     private static final int PORT = 1301;
+    private Socket clientSocket;
 
     /**
      * Run the TCP Client.
@@ -18,7 +25,7 @@ public class SimpleTcpClient {
         SimpleTcpClient client = new SimpleTcpClient();
         try {
             client.run();
-        } catch (InterruptedException e) {
+        } catch (InterruptedException | IOException e) {
             log("Client interrupted");
             Thread.currentThread().interrupt();
         }
@@ -31,7 +38,7 @@ public class SimpleTcpClient {
      * @throws InterruptedException The method sleeps to simulate long client-server conversation.
      *                              This exception is thrown if the execution is interrupted halfway.
      */
-    public void run() throws InterruptedException {
+    public void run() throws InterruptedException, IOException {
         log("Simple TCP client started");
 
         if (connectToServer(HOST, PORT)) {
@@ -88,9 +95,10 @@ public class SimpleTcpClient {
      *
      * @return True on success, false otherwise
      */
-    private boolean closeConnection() {
+    private boolean closeConnection() throws IOException {
         // TODO - implement this method
-        return false;
+        clientSocket.close();
+        return clientSocket.isClosed();
     }
 
     /**
@@ -100,10 +108,12 @@ public class SimpleTcpClient {
      * @param port TCP port to use
      * @return True when connection established, false otherwise
      */
-    private boolean connectToServer(String host, int port) {
+    private boolean connectToServer(String host, int port) throws IOException {
         // TODO - implement this method
+        clientSocket = new Socket(host, port);
+        System.out.println(""+clientSocket.isConnected());
         // Remember to catch all possible exceptions that the Socket class can throw.
-        return false;
+        return clientSocket.isConnected();
     }
 
     /**
@@ -112,14 +122,19 @@ public class SimpleTcpClient {
      * @param request The request message to send. Do NOT include the newline in the message!
      * @return True when message successfully sent, false on error.
      */
-    private boolean sendRequestToServer(String request) {
+    private boolean sendRequestToServer(String request) throws IOException {
         // TODO - implement this method
         // Hint: What can go wrong? Several things:
         // * Connection closed by remote host (server shutdown)
         // * Internet connection lost, timeout in transmission
         // * Connection not opened.
         // * What is the request is null or empty?
-        return false;
+        PrintWriter outToServer;
+        outToServer = new PrintWriter(clientSocket.getOutputStream()
+            ,true);
+        boolean isConnected = clientSocket.isConnected();
+        outToServer.println(request);
+        return isConnected;
     }
 
     /**
@@ -128,10 +143,12 @@ public class SimpleTcpClient {
      * @return The response received from the server, null on error. The newline character is stripped away
      * (not included in the returned value).
      */
-    private String readResponseFromServer() {
+    private String readResponseFromServer() throws IOException {
         // TODO - implement this method
         // Similarly to other methods, exception can happen while trying to read the input stream of the TCP Socket
-        return null;
+        BufferedReader inFromServer = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        String ServerSentence = inFromServer.readLine();
+        return ServerSentence;
     }
 
     /**
