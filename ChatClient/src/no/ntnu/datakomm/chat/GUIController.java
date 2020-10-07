@@ -338,7 +338,7 @@ public class GUIController implements ChatListener {
      * @param message Message that from another (chat server has forwarded it)
      */
     @Override
-    public void onMessageReceived(TextMessage message) {
+    public void onMessageReceived(no.ntnu.datakomm.chat.TextMessage message) {
         // Show the message in the GUI. Do it on the GUI thread.
         Platform.runLater(() -> addMsgToGui(false, message, false));
     }

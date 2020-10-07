@@ -1,5 +1,7 @@
 package main.java.no.ntnu.datakomm;
 
+import no.ntnu.datakomm.SimpleTcpClient;
+
 /**
  * A class used to test whether the server can handle multiple TCP client simultaneously (a multi-threaded server)
  */
